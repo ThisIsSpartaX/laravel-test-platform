@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get( '/', [ 'as' => 'index', 'uses' => 'SiteController@index' ] );
+
+Route::get( '/home', function() {
+    return redirect()->route('index');
 });
+
+Route::get( '/weather', [ 'as' => 'weather', 'uses' => 'WeatherController@index' ] );
+
+Auth::routes(['verify' => true, 'register' => false]);
