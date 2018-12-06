@@ -35,4 +35,12 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'yandex_weather' => [
+        'key' => env('YANDEX_WEATHER_KEY')
+    ],
+
+    'yandex_geocoding' => [
+        'key' => env('YANDEX_GEOCODING_KEY')
+    ]
+
 ];
