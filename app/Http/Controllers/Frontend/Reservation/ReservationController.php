@@ -84,6 +84,6 @@ class ReservationController extends Controller
 
         \DB::commit();
 
-        return redirect()->route('reservations.create')->with('success', "Your reservation for total number of ".$total." has been submitted.<br/>Hostes has been notified. You will receive a text message to your phone when table is ready for you");
+        return redirect()->route('reservations.create')->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
     }
 }
