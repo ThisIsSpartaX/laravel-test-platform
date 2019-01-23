@@ -73,12 +73,12 @@ class ReservationController extends Controller
             $log = new ReservationLog();
             $log->reservation_id = $reservation->id;
             $log->status = $reservation->status;
-            $log->user_id = \Auth::id();
+            $log->user_id = 0;
             $log->save();
 
         } catch (\Exception $e) {
             \DB::rollBack();
-            return redirect()->route('reservations.create')->with('error', "Reservation was not updated. Error in DB");
+            return redirect()->route('reservations.create')->with('error', "Reservation was not created. Error in DB");
         }
 
         \DB::commit();
