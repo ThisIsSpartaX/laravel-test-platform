@@ -60,7 +60,8 @@ class ReservationController extends Controller
 
             $reservation->first_name = $request->get('first_name');
             $reservation->last_name = $request->get('last_name');
-            $reservation->phone = $request->get('phone');
+            $phone = preg_replace('~[^0-9]+~', '', $request->get('phone'));
+            $reservation->phone = '1' . $phone;
             $reservation->email = $request->get('email');
             $reservation->children = $request->get('children');
             $reservation->adults = $request->get('adults');
