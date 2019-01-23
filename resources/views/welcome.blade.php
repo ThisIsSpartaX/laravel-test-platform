@@ -69,9 +69,9 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Главная</a>
+                        <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Вход</a>
+                        <a href="{{ route('login') }}">Sign In</a>
                     @endauth
                 </div>
             @endif
@@ -79,10 +79,6 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
-                </div>
-
-                <div class="links">
-                    <a href="{{ route('weather') }}">Погода</a>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@
 	"type": "project",
 	"require": {
 		"php": ">=7.0.0",
+		"aloha/twilio": "^4.0",
 		"barryvdh/laravel-ide-helper": "^2.5",
 		"fideloper/proxy": "~3.3",
 		"fzaninotto/faker": "^1.7",

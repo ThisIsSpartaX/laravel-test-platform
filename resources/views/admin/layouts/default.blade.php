@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('/favicon.ico') }}">
 
-    <title>@section('title') - Административная панель @show</title>
+    <title>@section('title') - Dashboard @show</title>
 
     <!-- css -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -42,7 +42,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    @include('admin.partials.header')
+                    @include('partials.header')
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -55,14 +55,14 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="http://flora.org/logout"
+                                <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="http://flora.org/logout" method="POST" style="display: none;">
-                                    <input type="hidden" name="_token" value="GVrOdtOCZuHk1fWZlgY8zyVrNnjelEqCimg3ybv7">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
                                 </form>
                             </li>
                         </ul>

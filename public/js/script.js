@@ -37,6 +37,12 @@ $(document).ready(function() {
     $(document).on('change', '.order-product-quantity', function(){
         order.changeQuantity($(this).data('product-id'), $(this).val());
     });
+    $(document).on('change', '#reservation_children, #reservation_adults', function() {
+        reservation.calculateTotalGuests();
+    });
+    $(document).on('keyup', '#reservation_children, #reservation_adults', function() {
+        reservation.calculateTotalGuests();
+    });
 });
 
 var order = {
@@ -104,6 +110,26 @@ var order = {
 
     updateSumText: function(orderSum) {
         $('#order-sum').text(formatter.format(orderSum));
+    }
+};
+
+var reservation = {
+    calculateTotalGuests: function() {
+
+        var reservation_children = 0;
+        var reservation_adults = 0;
+
+        if($('#reservation_children').val()) {
+            reservation_children = parseInt($('#reservation_children').val());
+        }
+
+        if($('#reservation_adults').val()) {
+            reservation_adults = parseInt($('#reservation_adults').val());
+        }
+
+        var total_guests = reservation_children + reservation_adults;
+        console.log(total_guests);
+        $('#total-guests').text(total_guests);
     }
 };
 

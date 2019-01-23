@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -35,5 +35,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Logout page.
+     */
+    public function logout()
+    {
+        // Log the user out
+        \Auth::logout();
+        \Session::flush();
+
+        // Redirect to the users page
+        return redirect('/')->with('success', 'You have successfully logged out!');
     }
 }

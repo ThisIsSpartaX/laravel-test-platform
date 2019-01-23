@@ -19,4 +19,13 @@ Route::get( '/home', function() {
 
 Route::get( '/weather', [ 'as' => 'weather', 'uses' => 'WeatherController@index' ] );
 
-Auth::routes(['verify' => true, 'register' => false]);
+Route::group(['prefix' => 'reservations', 'namespace' => 'Frontend\Reservation'], function () {
+    Route::get( '/', [ 'as' => 'reservations.create', 'uses' => 'ReservationController@create' ] );
+    Route::post('/', ['as' => 'admin.reservations.store', 'uses' => 'ReservationController@store']);
+});
+
+//Auth::routes(['verify' => true, 'reister' => false]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

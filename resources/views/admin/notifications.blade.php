@@ -1,10 +1,4 @@
-@if ($errors->any())
 <div class="notifications">
-    <div class="alert alert-danger alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>Ошибка:</strong> Пожалуйста проверьте поля формы
-    </div>
-
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -40,4 +34,3 @@
 @endif
 
 </div>
-@endif

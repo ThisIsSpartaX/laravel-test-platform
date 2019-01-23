@@ -2,7 +2,7 @@
 <div class="notifications">
     <div class="alert alert-danger alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>Ошибка:</strong> Пожалуйста проверьте поля формы
+      <strong>Error:</strong> Please check form fields
     </div>
 
 @if ($message = Session::get('success'))

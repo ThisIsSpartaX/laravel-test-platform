@@ -1,84 +1,101 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
+    <meta name="description" content="">
+    <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('/favicon.ico') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@section('title') - Dashboard @show</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- css -->
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ asset('/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}"/>
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<div id="app">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li class="{!! Route::is('weather') ? 'active' : '' !!}">
-                            <a href="{{ route('weather') }}">Погода</a>
-                        </li>
-                        &nbsp;<li class="{!! (Route::is('admin') || Route::is('admin')) ? 'active' : '' !!}">
-                            <a href="{{ route('admin') }}">Административная панель</a>
-                        </li>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Вход</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="/">
+                    Laravel
+                </a>
             </div>
-        </nav>
 
-        @yield('content')
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    @include('partials.header')
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @guest
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        @endguest
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- content -->
+    <div class="content">
+        <div class="container">
+            @yield('content')
+        </div>
     </div>
+    <!-- //content -->
+</div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+<div id="loader">
+    <img src="{{ asset('/images/loader.gif') }}" alt="Loading..." width="50" />
+</div>
+
+<!-- js -->
+<script type="text/javascript" src="{{ asset('/js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/vendors/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/vendors/momentjs/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="//malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
+@yield('footer_scripts')
 </body>
 </html>

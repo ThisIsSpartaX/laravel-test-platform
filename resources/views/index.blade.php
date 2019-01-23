@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <h1>
-            Laravel
+            Reservation System
         </h1>
+        <a href="{{ route('reservations.create') }}">Create Reservation</a>
     </div>
 @endsection
