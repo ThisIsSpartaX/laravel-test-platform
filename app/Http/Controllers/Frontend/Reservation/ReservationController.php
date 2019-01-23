@@ -78,7 +78,7 @@ class ReservationController extends Controller
 
         } catch (\Exception $e) {
             \DB::rollBack();
-            return redirect()->route('admin.reservations')->with('error', "Reservation was not updated. Error in DB");
+            return redirect()->route('reservations.create')->with('error', "Reservation was not updated. Error in DB");
         }
 
         \DB::commit();
