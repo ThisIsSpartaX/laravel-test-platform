@@ -40,7 +40,12 @@ $(document).ready(function() {
     $(document).on('change', '#reservation_children, #reservation_adults', function() {
         reservation.calculateTotalGuests();
     });
+
     $(document).on('keyup', '#reservation_children, #reservation_adults', function() {
+        reservation.calculateTotalGuests();
+    });
+
+    $(document).on('mouseup', '#reservation_children, #reservation_adults', function() {
         reservation.calculateTotalGuests();
     });
 });
