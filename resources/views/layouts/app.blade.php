@@ -95,6 +95,7 @@
 <script type="text/javascript" src="{{ asset('/vendors/momentjs/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script type="text/javascript" src="//malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript" src="{{ asset('/js/jquery.mask.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
 @yield('footer_scripts')
 </body>

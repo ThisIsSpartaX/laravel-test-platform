@@ -48,6 +48,8 @@ $(document).ready(function() {
     $(document).on('mouseup', '#reservation_children, #reservation_adults', function() {
         reservation.calculateTotalGuests();
     });
+
+    $('#reservation-form #phone').mask('(000) 000-0000');
 });
 
 var order = {
