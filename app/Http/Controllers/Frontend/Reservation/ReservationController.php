@@ -67,7 +67,7 @@ class ReservationController extends Controller
             $reservation->adults = $request->get('adults');
             $reservation->status = 'waiting';
 
-            $reservation->calculateTotalGuests($request->get('children'), $request->get('adults'));
+            $total = $reservation->calculateTotalGuests($request->get('children'), $request->get('adults'));
 
             $reservation->save();
 
@@ -84,6 +84,6 @@ class ReservationController extends Controller
 
         \DB::commit();
 
-        return redirect()->route('reservations.create')->with('success', "Reservation created successfully!");
+        return redirect()->route('reservations.create')->with('success', "Your reservation for total number of ".$total." has been submitted.<br/>Hostes has been notified. You will receive a text message to your phone when table is ready for you");
     }
 }
