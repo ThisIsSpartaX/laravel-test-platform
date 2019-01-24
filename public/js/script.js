@@ -55,7 +55,7 @@ $(document).ready(function() {
 
     setInterval(function() {
         reservation.refreshReservations();
-    }, 5000);
+    }, 10000);
 
 });
 
