@@ -19,7 +19,7 @@ class CreateReservationsTable extends Migration
             $table->string('last_name');
             $table->string('phone');
             $table->string('email');
-            $table->integer('children');
+            $table->integer('children')->nullable();
             $table->integer('adults');
             $table->string('status');
             $table->timestamps();

@@ -63,7 +63,7 @@ class ReservationController extends Controller
             $phone = preg_replace('~[^0-9]+~', '', $request->get('phone'));
             $reservation->phone = '1' . $phone;
             $reservation->email = $request->get('email');
-            $reservation->children = $request->get('children');
+            $reservation->children = ($request->get('children')) ? $request->get('children') : 0;
             $reservation->adults = $request->get('adults');
             $reservation->status = 'waiting';
 
