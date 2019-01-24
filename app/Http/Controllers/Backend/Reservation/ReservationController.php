@@ -46,6 +46,27 @@ class ReservationController extends Controller
     }
 
     /**
+     * Reservations refresh
+     *
+     * @return JsonResponse
+     */
+    public function refresh(Request $request)
+    {
+        $response = [];
+        $response['data'] = '';
+
+        $lastId = $request->query('last_id');
+        $reservations = $this->reservations->newQuery()->where('id', '>', $lastId)->orderBy('id', 'desc')->get();
+
+        if($reservations->count()) {
+            $statuses = Reservation::getStatusesList();
+            $response['html'] = \View::make('admin.reservations.list', compact('reservations', 'statuses'))->render();
+        }
+
+        return response()->json($response);
+    }
+
+    /**
      * Update Reservation
      *
      * @param UpdateRequest $request

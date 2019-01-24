@@ -49,7 +49,14 @@ $(document).ready(function() {
         reservation.calculateTotalGuests();
     });
 
-    $('#reservation-form #phone').mask('(000) 000-0000');
+    if($('#reservation-form #phone').length > 0) {
+        $('#reservation-form #phone').mask('(000) 000-0000');
+    }
+
+    setInterval(function() {
+        reservation.refreshReservations();
+    }, 5000);
+
 });
 
 var order = {
@@ -137,6 +144,26 @@ var reservation = {
         var total_guests = reservation_children + reservation_adults;
         console.log(total_guests);
         $('#total-guests').text(total_guests);
+    },
+
+    refreshReservations: function() {
+        var reservation_id = $('#reservations-list tbody tr:first-child').data('reservation_id');
+        reservation.getNewReservations(reservation_id);
+    },
+
+    getNewReservations: function(reservation_id) {
+
+        $.ajax({
+            url: '/admin/reservations/refresh?last_id='+reservation_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (reseponse) {
+                if(reseponse.html) {
+                    $('#reservations-list tbody').prepend(reseponse.html);
+                }
+            }
+        });
+
     }
 };
 

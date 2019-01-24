@@ -37,7 +37,7 @@
         </thead>
         <tbody>
         @foreach($reservations as $reservation)
-        <tr>
+        <tr id="reservation-{{ $reservation->id }}" data-reservation_id="{{ $reservation->id }}">
             <td>{{ $reservation->id }}</td>
             <td>{{ $reservation->created_at }}</td>
             <td>{{ $reservation->first_name }} {{ $reservation->last_name }}</td>

@@ -13,6 +13,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
     });
 
     Route::group(['prefix' => 'reservations', 'namespace' => 'Reservation'], function () {
+        Route::get( '/refresh', [ 'as' => 'admin.reservations', 'uses' => 'ReservationController@refresh' ] );
         Route::get( '/', [ 'as' => 'admin.reservations', 'uses' => 'ReservationController@index' ] );
         Route::get('{id}/edit', ['as' => 'admin.reservations.edit', 'uses' => 'ReservationController@edit']);
         Route::post('{id}/', ['as' => 'admin.reservations.update','uses' => 'ReservationController@update']);
