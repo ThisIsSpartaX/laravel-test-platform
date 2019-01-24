@@ -28,8 +28,8 @@ class StoreRequest extends FormRequest
             'last_name'    => 'required|string|min:1',
             'phone'    => 'required',
             'email'  => 'required|email',
-            'children'    => 'nullable|integer',
-            'adults'    => 'required|integer|min:1',
+            'children'    => 'nullable|integer|min:0|max:10',
+            'adults'    => 'required|integer|min:1|max:20',
         ];
     }
 }

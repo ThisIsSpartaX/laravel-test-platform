@@ -28,11 +28,11 @@
             </div>
             <div class="form-group">
                 {!! Form::label('children', 'Children:', ['class' => 'input__label']) !!}
-                {!! Form::number('children', null, array('class' => 'form-control', 'id' => 'reservation_children', 'min' => '0')) !!}
+                {!! Form::number('children', null, array('class' => 'form-control', 'id' => 'reservation_children', 'min' => '0', 'max' => '10')) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('adults', 'Adults: *', ['class' => 'input__label']) !!}
-                {!! Form::number('adults', null, array('class' => 'form-control', 'required' => 'required', 'id' => 'reservation_adults', 'min' => '0')) !!}
+                {!! Form::number('adults', null, array('class' => 'form-control', 'required' => 'required', 'id' => 'reservation_adults', 'min' => '1', 'max' => '20')) !!}
             </div>
             <div class="form-group text-left">
                 <b>Total Guests:</b> <span id="total-guests" class="h4"></span>
