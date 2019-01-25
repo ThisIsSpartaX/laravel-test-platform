@@ -15,3 +15,8 @@ div#loader {
     z-index: 2;
     overflow: auto;
 }
+
+.reservation-row.not-viewed td {
+    background: #ccc;
+    cursor: pointer;
+}

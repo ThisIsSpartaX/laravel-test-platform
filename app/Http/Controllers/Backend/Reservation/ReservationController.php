@@ -36,11 +36,17 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $reservations = $this->reservations->newQuery()->orderBy('id', 'desc')->paginate(25);
+        $reservations = $this->reservations->newQuery()->orderBy('id', 'desc')->paginate(10);
 
         $statuses = Reservation::getStatusesList();
+
+        $newReservations = $this->reservations->newQuery()->where('viewed', 0)->get();
+
+        if($newReservations->count()) {
+            $request->session()->put('success', 'You have ' .$newReservations->count(). ' new reservations.');
+        }
 
         return view('admin.reservations.index', compact('reservations', 'statuses'));
     }
@@ -56,11 +62,14 @@ class ReservationController extends Controller
         $response['data'] = '';
 
         $lastId = $request->query('last_id');
-        $reservations = $this->reservations->newQuery()->where('id', '>', $lastId)->orderBy('id', 'desc')->get();
+        $reservations = $this->reservations->newQuery()->where('viewed', 0)->get();
 
         if($reservations->count()) {
-            $statuses = Reservation::getStatusesList();
-            $response['html'] = \View::make('admin.reservations.list', compact('reservations', 'statuses'))->render();
+            //$statuses = Reservation::getStatusesList();
+            $request->session()->put('success', 'You have ' .$reservations->count(). ' new reservations.');
+            $response['html'] = \View::make('notifications')->render();
+            $request->session()->remove('success');
+            //$response['html'] = \View::make('admin.reservations.list', compact('reservations', 'statuses'))->render();
         }
 
         return response()->json($response);
@@ -106,5 +115,38 @@ class ReservationController extends Controller
         } else {
             return redirect()->route('admin.reservations');
         }
+    }
+
+    /**
+     * View Reservation
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function view(Request $request, int $id)
+    {
+        $reservation = $this->reservations->findOrFail($id);
+
+        \DB::beginTransaction();
+
+        try {
+            $reservation->viewed = 1;
+            $reservation->update();
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+        }
+
+        \DB::commit();
+
+        $log = new ReservationLog();
+        $log->reservation_id = $reservation->id;
+        $log->status = 'viewed';
+        $log->user_id = \Auth::id();
+        $log->save();
+
+        return response()->json([]);
     }
 }

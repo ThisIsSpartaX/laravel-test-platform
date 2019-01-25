@@ -53,10 +53,20 @@ $(document).ready(function() {
         $('#reservation-form #phone').mask('(000) 000-0000');
     }
 
-    setInterval(function() {
-        reservation.refreshReservations();
-    }, 10000);
+    if($('#reservations-list').length > 0) {
+        setInterval(function() {
+            reservation.refreshReservations();
+        }, 10000);
+    }
+    if($('#reservations-wait-list').length > 0) {
+        setInterval(function() {
+            reservation.refreshWaitList();
+        }, 10000);
+    }
 
+    $(document).on('mouseover', '.reservation-row.not-viewed', function() {
+        reservation.viewNewReservation($(this).data('reservation_id'));
+    });
 });
 
 var order = {
@@ -152,18 +162,46 @@ var reservation = {
     },
 
     getNewReservations: function(reservation_id) {
-
         $.ajax({
             url: '/admin/reservations/refresh?last_id='+reservation_id,
             type: 'GET',
             dataType: 'json',
             success: function (reseponse) {
                 if(reseponse.html) {
-                    $('#reservations-list tbody').prepend(reseponse.html);
+                    $('#notifications').html(reseponse.html);
                 }
             }
         });
+    },
 
+    refreshWaitList: function() {
+        var reservation_id = $('#reservations-wait-list tbody tr:first-child').data('reservation_id');
+        reservation.getNewWaitListReservations(reservation_id);
+    },
+
+    getNewWaitListReservations: function(reservation_id) {
+        $.ajax({
+            url: '/reservations/wait-list/refresh?last_id='+reservation_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (reseponse) {
+                if(reseponse.html) {
+                    $('#reservations-wait-list tbody').html(reseponse.html);
+                }
+            }
+        });
+    },
+
+    viewNewReservation: function(reservation_id) {
+        $.ajax({
+            url: '/admin/reservations/'+reservation_id+'/view',
+            type: 'GET',
+            dataType: 'json',
+            success: function (reseponse) {
+                $('#reservation-'+reservation_id).removeClass('not-viewed');
+                reservation.refreshReservations();
+            }
+        });
     }
 };
 

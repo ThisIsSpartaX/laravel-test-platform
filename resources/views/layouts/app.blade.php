@@ -35,7 +35,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/">
-                    Laravel
+                    Reservation System
                 </a>
             </div>
 

@@ -1,7 +1,7 @@
         @foreach($reservations as $reservation)
-        <tr id="reservation-{{ $reservation->id }}" data-reservation_id="{{ $reservation->id }}">
+        <tr id="reservation-{{ $reservation->id }}" class="reservation-row {{ $reservation->viewed ? 'viewed' : 'not-viewed' }}" data-reservation_id="{{ $reservation->id }}">
             <td>{{ $reservation->id }}</td>
-            <td>{{ $reservation->created_at }}</td>
+            <td>{{ $reservation->created_at->format('m/d/Y g:i:s A') }}</td>
             <td>{{ $reservation->first_name }} {{ $reservation->last_name }}</td>
             <td>{{ $reservation->phone }}</td>
             <td>{{ $reservation->email }}</td>

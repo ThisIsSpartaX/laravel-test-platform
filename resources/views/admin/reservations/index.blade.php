@@ -19,6 +19,10 @@
     @include('admin.notifications')
     <br/>
 
+    <p class="text-right">
+        <a href="{{ Request::fullUrl() }}" class="btn btn-primary">Refresh</a>
+    </p>
+
 @if ($reservations->count())
     <table id="reservations-list" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -36,25 +40,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($reservations as $reservation)
-        <tr id="reservation-{{ $reservation->id }}" data-reservation_id="{{ $reservation->id }}">
-            <td>{{ $reservation->id }}</td>
-            <td>{{ $reservation->created_at }}</td>
-            <td>{{ $reservation->first_name }} {{ $reservation->last_name }}</td>
-            <td>{{ $reservation->phone }}</td>
-            <td>{{ $reservation->email }}</td>
-            <td>{{ $reservation->children }}</td>
-            <td>{{ $reservation->adults }}</td>
-            <td>{{ $reservation->getTotalGuests() }}</td>
-            <td>{{ $reservation->getStatusText() }}</td>
-            <td>
-                {!! Form::open(array('url' => URL::to('admin/reservations/' . $reservation->id), 'method' => 'post', 'files'=> true, 'id' => 'reservation-row-form', 'data-reservation-id' => ''.$reservation->id)) !!}
-                {!! Form::select('status', $reservation->getAvailableStatuses(), $reservation->status, array('class' => 'form-control', 'placeholder' => '-- Status --', 'style' => 'width: 120px; display: inline-block;'))!!}
-                <button type="submit" class="btn btn-primary">Save</button>
-                {!! Form::close() !!}
-            </td>
-        </tr>
-        @endforeach
+        @include('admin.reservations.list')
     </table>
     <div class="text-center">
         {!! $reservations->render() !!}

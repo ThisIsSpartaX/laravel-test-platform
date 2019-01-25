@@ -22,6 +22,7 @@ class CreateReservationsTable extends Migration
             $table->integer('children')->nullable();
             $table->integer('adults');
             $table->string('status');
+            $table->boolean('viewed')->default('0');
             $table->timestamps();
         });
     }

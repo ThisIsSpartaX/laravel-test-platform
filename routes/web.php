@@ -21,6 +21,8 @@ Route::get( '/weather', [ 'as' => 'weather', 'uses' => 'WeatherController@index'
 
 Route::group(['prefix' => 'reservations', 'namespace' => 'Frontend\Reservation'], function () {
     Route::get( '/', [ 'as' => 'reservations.create', 'uses' => 'ReservationController@create' ] );
+    Route::get( '/wait-list/refresh', [ 'as' => 'reservations.waitlist.refresh', 'uses' => 'ReservationController@refresh' ] );
+    Route::get( '/wait-list', [ 'as' => 'reservations.index', 'uses' => 'ReservationController@index' ] );
     Route::post('/', ['as' => 'admin.reservations.store', 'uses' => 'ReservationController@store']);
 });
 

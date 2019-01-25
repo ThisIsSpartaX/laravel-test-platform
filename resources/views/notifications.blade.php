@@ -1,10 +1,10 @@
+<div id="notifications" class="notifications">
 @if ($errors->any())
-<div class="notifications">
     <div class="alert alert-danger alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong>Error:</strong> Please check form fields
     </div>
-
+    @endif
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -38,6 +38,4 @@
     <div class="text-danger">{{ $error }}</div>
   @endforeach
 @endif
-
 </div>
-@endif

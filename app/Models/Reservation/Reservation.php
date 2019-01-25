@@ -84,6 +84,14 @@ class Reservation extends Model
     {
         parent::boot();
 
+        self::created(function($model){
+            if($model->status == 'waiting') {
+                $phone = $model->phone;
+                $text = 'Your reservation for total number of '.$model->calculateTotalGuests($model->children, $model->adults).' has been submitted. Hostes has been notified. You will receive a text message to your phone when table is ready for you';
+                self::sendSMS($phone, $text);
+            }
+        });
+
         self::updated(function($model){
             if($model->status == 'prepared') {
                 $phone = $model->phone;
@@ -125,5 +133,12 @@ class Reservation extends Model
             unset($statuses['waiting']);
         }
         return $statuses;
+    }
+
+    public function getTimeWaited()
+    {
+        $timeInSeconds = time() - strtotime($this->created_at);
+
+        return gmdate("H:i:s", $timeInSeconds);
     }
 }

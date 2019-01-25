@@ -66,6 +66,7 @@ class ReservationController extends Controller
             $reservation->children = ($request->get('children')) ? $request->get('children') : 0;
             $reservation->adults = $request->get('adults');
             $reservation->status = 'waiting';
+            $reservation->viewed = 0;
 
             $total = $reservation->calculateTotalGuests($request->get('children'), $request->get('adults'));
 
@@ -84,6 +85,57 @@ class ReservationController extends Controller
 
         \DB::commit();
 
-        return redirect()->route('reservations.create')->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
+        //Set reservations cookie
+        $reservations = [];
+
+        if($request->cookie('reservations')) {
+            $reservations = explode(',', $request->cookie('reservations'));
+        }
+
+        $reservations[$reservation->id] = $reservation->id;
+        $reservations = implode(',', $reservations);
+
+        return redirect()->route('reservations.waitlist')->withCookie('reservations', $reservations)->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
+    }
+
+
+    /**
+     * Reservations lists
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $reservations = $this->reservations->newQuery()->orderBy('id', 'asc')->where('status', 'waiting')->orWhere('status', 'in_progress')->orWhere('status', 'prepared')->paginate(100);
+
+        return view('pages.reservations.index', compact('reservations'));
+    }
+
+    /**
+     * Reservations refresh
+     *
+     * @return JsonResponse
+     */
+    public function refresh(Request $request)
+    {
+        $response = [];
+        $response['data'] = '';
+
+        $lastId = $request->query('last_id');
+        $reservations = $this->reservations->newQuery()
+            ->where( function ( $query )
+            {
+                $query->where( 'status', '=', 'waiting' )
+                    ->orWhere( 'status', '=', 'in_progress' )
+                    ->orWhere( 'status', '=', 'prepared' );
+            })
+            ->orderBy('id', 'asc')->get();
+
+        if($reservations->count()) {
+            $statuses = Reservation::getStatusesList();
+            $response['html'] = \View::make('pages.reservations.list', compact('reservations', 'statuses'))->render();
+        }
+
+        return response()->json($response);
     }
 }

@@ -1,5 +1,5 @@
 <h1>
-    Reservation
+    Create Reservation
 </h1>
 <div class="form-block" style="max-width: 500px;">
 {!! Form::open(array('url' => URL::to('/reservations/'), 'method' => 'post', 'files'=> true, 'id' => 'reservation-form')) !!}
