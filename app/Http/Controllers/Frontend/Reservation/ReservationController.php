@@ -95,7 +95,7 @@ class ReservationController extends Controller
         $reservations[$reservation->id] = $reservation->id;
         $reservations = implode(',', $reservations);
 
-        return redirect()->route('reservations.waitlist')->withCookie('reservations', $reservations)->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
+        return redirect()->route('reservations.index')->withCookie('reservations', $reservations)->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
     }
 
 
