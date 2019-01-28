@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 {{-- Page title --}}
-@section('title'){{ 'Create Reservation' }} @parent
+@section('title'){{ 'Signup for Wait List' }} @parent
 @endsection
 
 @section('content')
