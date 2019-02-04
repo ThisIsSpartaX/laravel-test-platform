@@ -33,7 +33,7 @@ class TwilioService // implements ShouldQueue
             Log::info('Message sent to number: ' . $phone);
         } catch (\Exception $e) {
             Log::error('Message not sent to number: ' . $phone);
-            die($e->getMessage());
+            throw $e;
         }
 
         if($result->status == 'queued') {

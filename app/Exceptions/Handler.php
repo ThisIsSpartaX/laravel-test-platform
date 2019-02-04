@@ -53,6 +53,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        var_dump($exception);
+
+        die();
+
         if ($exception instanceof ModelNotFoundException) {
             if ($request->wantsJson()) {
                 $errors = [];

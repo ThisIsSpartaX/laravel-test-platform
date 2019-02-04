@@ -87,15 +87,22 @@ class Reservation extends Model
         self::created(function($model){
             if($model->status == 'waiting') {
                 $phone = $model->phone;
-                $text = 'Your reservation for total number of '.$model->calculateTotalGuests($model->children, $model->adults).' has been submitted. Hostes has been notified. You will receive a text message to your phone when table is ready for you';
+                $text = 'Welcome, your reservation for a party of '.$model->calculateTotalGuests($model->children, $model->adults).'  has been received. We will text message you when your table is ready to be seated.';
                 self::sendSMS($phone, $text);
             }
+
+            $log = new ReservationLog();
+            $log->reservation_id = $model->id;
+            $log->status = $model->status;
+            $log->user_id = 0;
+            $log->save();
+
         });
 
         self::updated(function($model){
             if($model->status == 'prepared') {
                 $phone = $model->phone;
-                $text = 'Your table is ready, please see your hostes';
+                $text = 'Your table is ready to be seated. Please make your appearance at our hostess station';
                 self::sendSMS($phone, $text);
             }
             if($model->status == 'seated') {
@@ -139,6 +146,10 @@ class Reservation extends Model
     {
         $timeInSeconds = time() - strtotime($this->created_at);
 
-        return gmdate("H:i:s", $timeInSeconds);
+        if($timeInSeconds > (60 * 60 * 24)) {
+            return floor($timeInSeconds / (60 * 60 * 24)) ." days " . gmdate("H:i", $timeInSeconds);
+        }
+
+        return gmdate("H:i", $timeInSeconds);
     }
 }

@@ -72,15 +72,18 @@ class ReservationController extends Controller
 
             $reservation->save();
 
-            $log = new ReservationLog();
-            $log->reservation_id = $reservation->id;
-            $log->status = $reservation->status;
-            $log->user_id = 0;
-            $log->save();
-
         } catch (\Exception $e) {
             \DB::rollBack();
-            return redirect()->route('reservations.create')->with('error', "Reservation was not created. Error in DB");
+
+            if($e instanceof \Illuminate\Database\QueryException) {
+                return redirect()->route('reservations.create')->with('error', "Reservation was not created. Error in DB. Error code #1.");
+            }
+            elseif($e instanceof \Twilio\Exceptions\RestException) {
+                return redirect()->route('reservations.create')->with('error', "Reservation was not created. \nError in SMS gateway. \nError code #2.\n" . "Error details: " . $e->getMessage());
+            }
+
+            return redirect()->route('reservations.create')->with('error', "Reservation was not created. Error Code #3");
+
         }
 
         \DB::commit();
@@ -95,7 +98,7 @@ class ReservationController extends Controller
         $reservations[$reservation->id] = $reservation->id;
         $reservations = implode(',', $reservations);
 
-        return redirect()->route('reservations.index')->withCookie('reservations', $reservations)->with('success', "Your reservation for total number of ".$total." has been submitted.\nHostes has been notified. You will receive a text message to your phone when table is ready for you");
+        return redirect()->route('reservations.index')->withCookie('reservations', $reservations)->with('success', "Success...\nThank you.  Your reservation for a party of ".$total." has been received.\nWe will text message you when your table is ready to be seated.");
     }
 
 

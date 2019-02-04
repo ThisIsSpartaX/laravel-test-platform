@@ -27,8 +27,8 @@
         <table id="reservations-wait-list" class="table table-striped table-bordered" style="width:100%">
             <thead>
             <tr>
-                <th>Placement # (FIFO)</th>
-                <th>Party (First Name)</th>
+                <th>Placement #</th>
+                <th>Party</th>
                 <!--<th>Date</th>-->
                 <th>Size</th>
                 <th>Time Waited</th>
