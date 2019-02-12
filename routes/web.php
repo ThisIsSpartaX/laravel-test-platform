@@ -26,6 +26,14 @@ Route::group(['prefix' => 'reservations', 'namespace' => 'Frontend\Reservation']
     Route::post('/', ['as' => 'admin.reservations.store', 'uses' => 'ReservationController@store']);
 });
 
+Route::group(['prefix' => 'customers', 'namespace' => 'Frontend\Customer'], function () {
+    Route::get( '/', [ 'as' => 'customers.create', 'uses' => 'CustomerController@create' ] );
+    Route::post('/', ['as' => 'admin.customers.store', 'uses' => 'CustomerController@store']);
+    Route::post('/', function() {
+        return redirect()->route('index');
+    });
+});
+
 //Auth::routes(['verify' => true, 'reister' => false]);
 
 Auth::routes();

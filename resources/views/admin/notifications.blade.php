@@ -4,6 +4,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     {{ $message }}
 </div>
+<?php Session::remove('success') ?>
 @endif
 
 @if ($message = Session::get('error'))
