@@ -12,4 +12,7 @@
 <li class="nav-item {!! (Route::is('admin.reservations') || Route::is('admin.reservations.edit')) ? 'active' : '' !!}">
     <a class="nav-link" href="{{ route('admin.reservations') }}">Reservations</a>
 </li>
+<li class="nav-item {!! (Route::is('admin.orders') || Route::is('admin.orders')) ? 'active' : '' !!}">
+    <a class="nav-link" href="{{ route('admin.orders') }}">Orders</a>
+</li>
 @endif
