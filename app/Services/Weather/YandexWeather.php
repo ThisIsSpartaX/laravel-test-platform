@@ -11,7 +11,8 @@ use GuzzleHttp\Client as HttpClient;
  */
 class YandexWeather implements Weather
 {
-    private const ENDPOINT_URI = 'https://api.weather.yandex.ru/v1/forecast';
+    /** @var string */
+    private $endpoint;
 
     /** @var HttpClient */
     private $client;
@@ -32,6 +33,7 @@ class YandexWeather implements Weather
     {
         $this->client = new HttpClient();
         $this->key = config('services.yandex_weather.key');
+        $this->endpoint = config('services.yandex_weather.endpoint');
     }
 
     /**
@@ -50,7 +52,9 @@ class YandexWeather implements Weather
             ]
         ];
 
-        $response = $this->client->get($this->buildUrl(['lat' => $lat, 'lon' => $lon, 'extra' => 'true']), $options);
+        $response = $this->client->get($this->buildUrl(['lat' => $lat, 'lon' => $lon]), $options);
+
+
 
         $this->response = $responseData = json_decode($response->getBody(), true);
         $this->data['temperature'] = $responseData['fact']['temp'];
@@ -63,7 +67,7 @@ class YandexWeather implements Weather
      */
     public function getEndpoint(): string
     {
-        return self::ENDPOINT_URI;
+        return $this->endpoint;
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('admin.layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ 'Заказы' }} @parent
+@section('title'){{ 'Orders' }} @parent
 @stop
 
 {{-- Page content --}}
@@ -10,9 +10,9 @@
     <div class="navigation--horizontal">
         <!-- Breadcrumbs -->
         <div class="breadcrumbs text-xs">
-            <a class="text-black" href="{{ route('admin') }}">Административная панель</a> &#8226; Заказы
+            <a class="text-black" href="{{ route('admin') }}">Dashboard</a> &#8226; Orders
         </div>
-        <h1>Заказы</h1>
+        <h1>Orders</h1>
     </div>
 
 @if ($orders->count())
@@ -20,10 +20,10 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Партнер</th>
-            <th>Стоимость</th>
-            <th>Наименование - Состав (шт.)</th>
-            <th>Статус</th>
+            <th>Partner</th>
+            <th>Price</th>
+            <th>Items List (quantity)</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <table width="100%">
                     @foreach($order->orderProducts as $orderProduct)
                         <tr>
-                            <td>{{ $orderProduct->product->name }}</td>
+                            <td><a href="{{ route('admin.products.edit', $orderProduct->product->id) }}">{{ $orderProduct->product->name }}</a></td>
                             <td class="text-center">{{ $orderProduct->quantity }}</td>
                         </tr>
                     @endforeach
@@ -49,7 +49,7 @@
         {!! $orders->render() !!}
     </div>
 @else
-    Записей нет
+    No Orders
 @endif
 
 

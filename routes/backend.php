@@ -4,6 +4,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
 
     Route::get( '/', [ 'as' => 'admin', 'uses' => 'DashboardController@index' ] );
 
+    Route::group(['prefix' => 'products', 'namespace' => 'Product'], function () {
+        Route::post('/products/add', ['as' => 'admin.products.product.add', 'uses' => 'ProductController@productAdd']);
+        Route::post('/products/calculate', ['as' => 'admin.products.edit', 'uses' => 'ProductController@calculateSum']);
+        Route::get( '/', [ 'as' => 'admin.products', 'uses' => 'ProductController@index' ] );
+        Route::get('{id}/edit', ['as' => 'admin.products.edit', 'uses' => 'ProductController@edit']);
+        Route::post('{id}/', ['as' => 'admin.products.update','uses' => 'ProductController@update']);
+    });
+
     Route::group(['prefix' => 'orders', 'namespace' => 'Order'], function () {
         Route::post('/products/add', ['as' => 'admin.orders.product.add', 'uses' => 'OrderController@productAdd']);
         Route::post('/products/calculate', ['as' => 'admin.orders.edit', 'uses' => 'OrderController@calculateSum']);

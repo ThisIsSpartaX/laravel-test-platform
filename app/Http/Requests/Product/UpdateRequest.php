@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,11 +24,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'partner_id'    => 'required|exists:partners,id',
-            'client_email'  => 'required|email',
-            'delivery_dt'   => 'required|date|date_format:Y-m-d H:i:s',
-            'product_id'       => 'required|exists:products,id',
-            'status'        => 'required|in:0,10,20'
+            'name'      => 'required|string',
+            'price'     => 'required|amount',
+            'status'    => 'required|in:1,2,3'
         ];
     }
 
@@ -40,10 +38,9 @@ class UpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'partner_id'       => 'Партнер',
-            'client_email'     => 'Емейл',
-            'delivery_date'    => 'Дата доставки',
-            'product_id'       => 'Товар',
+            'name'      => 'Name',
+            'price'     => 'Price',
+            'status'    => 'Status',
         ];
     }
 
@@ -56,8 +53,8 @@ class UpdateRequest extends FormRequest
     {
         // use trans instead on Lang
         return [
-            'required' => 'Поле :attribute обязательно для заполенения',
-            'email'    => 'Поле :attribute имеет неправильный формат',
+            'required' => 'Field :attribute required',
+            'email'    => 'Field :attribute format is wrong',
         ];
     }
 }

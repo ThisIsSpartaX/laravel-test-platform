@@ -42,6 +42,24 @@ Custom CSS `/public/css/style.css`
         - status(editable, required)
         - total amount(text)
         - save button
+        
+#### Products
+- Products page
+    - columns 
+        - Product ID
+        - Title 
+        - Quantity 
+        - Price 
+        - Status
+    - product_id - link to product page
+- Products Edit Page
+    - fields:
+        - title(editable, required)
+        - price(editable, required)
+        - quantity(text)
+        - status(editable, required)        
+        - update button
+        - cancel button                
 
 #### Wait List
 - Wait List Page
@@ -86,15 +104,39 @@ Custom CSS `/public/css/style.css`
          - Favorite menu item
          - What is your birthday day and month?            
        
-####Go to "Yandex.Weather" and "JavaScript API и HTTP Geocoder" https://developer.tech.yandex.ru/keys/, create API keys and set it in .env  
+####Get keys in Yandex Developmemnt Console  https://developer.tech.yandex.ru/keys/
+ 
+#####№1. Get Test key(trial for 30 days) or "Weather on your site" for "Yandex.Weather" and set it in .env:
 
 YANDEX_WEATHER_KEY=
 
+Then set "Yandex.Weather" API URL:
+
+For Test key:
+
+YANDEX_WEATHER_ENDPOINT=https://api.weather.yandex.ru/v1/forecast
+
+For "Weather on your site":
+
+YANDEX_WEATHER_ENDPOINT=https://api.weather.yandex.ru/v1/informers
+
+#####№2. "JavaScript API и HTTP Геокодер"  
+
 YANDEX_GEOCODING_KEY=        
+
+####Get Twilio keys https//twilio.com and set it in .env:
+
+TWILIO_SID=
+
+TWILIO_TOKEN=
+
+TWILIO_FROM=     
 
 
 TWILIO_SID=
+
 TWILIO_TOKEN=
+
 TWILIO_FROM=
 
 
@@ -140,6 +182,24 @@ css в `/public/css/style.css`
         - статус заказа(редактирование, обязательное)
         - стоимость заказ(вывод)
         - сохранение изменений в заказе
+        
+#### Товары
+- Страница со списоком товаров в табличном виде
+    - поля 
+        - ид_товара 
+        - название_товара 
+        - стоимость_товара 
+        - количество_товаров
+        - статус
+    - ид_товара - ссылка на редактирование товара в новой вкладке
+- Страница редактирования товара
+    - поля для редактирования:
+        - название(редактирование, обязательное)
+        - цена(редактирование, обязательное)
+        - количество(вывод)
+        - статус товара(редактирование, обязательное)        
+        - сохранение изменений в товара
+        - возврат в список товаров         
 
 #### Wait List
 - Wait List Page
@@ -184,13 +244,30 @@ css в `/public/css/style.css`
          - Favorite menu item
          - What is your birthday day and month? 
        
-####Для получения данных о погоде необходимо получить ключи "Яндекс.Погода" и "JavaScript API и HTTP Геокодер" https://developer.tech.yandex.ru/keys/  и вписать их в .env    
+####Для получения данных о погоде необходимо получить ключи https://developer.tech.yandex.ru/keys/
+ 
+№1. Есть два вида ключей - Тестовый ключ(доступен только 30 дней) и "Погода на вашем сайте":
 
 YANDEX_WEATHER_KEY=
 
+Далее указываем API URL "Яндекс.Погода":
+
+Если Тестовый ключ, то URL: 
+
+YANDEX_WEATHER_ENDPOINT=https://api.weather.yandex.ru/v1/forecast
+
+Если "Погода на вашем сайте", то URL:
+
+YANDEX_WEATHER_ENDPOINT=https://api.weather.yandex.ru/v1/informers
+
+№2. "JavaScript API и HTTP Геокодер"  
+
 YANDEX_GEOCODING_KEY=        
 
+####Получаем Twilio ключи https//twilio.com и вводим их в .env:
 
 TWILIO_SID=
+
 TWILIO_TOKEN=
+
 TWILIO_FROM=

@@ -105,6 +105,8 @@ return [
         ],
     ],
 
+    'amount' => 'The amount field is incorrect',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

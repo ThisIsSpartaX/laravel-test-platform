@@ -36,7 +36,8 @@ return [
     ],
 
     'yandex_weather' => [
-        'key' => env('YANDEX_WEATHER_KEY')
+        'key' => env('YANDEX_WEATHER_KEY'),
+        'endpoint' => env('YANDEX_WEATHER_ENDPOINT'),
     ],
 
     'yandex_geocoding' => [

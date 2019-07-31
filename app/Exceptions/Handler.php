@@ -76,6 +76,8 @@ class Handler extends ExceptionHandler
             }
             $errorsData = \GuzzleHttp\json_decode($exception->getResponse()->getBody());
 
+            dd($errorsData);
+
             $errors['status'] = $errorsData->error->status;
             $errors['message'] = $errorsData->error->message;
 

@@ -24,9 +24,9 @@ class Order extends Model
     protected $table     = 'orders';
 
     protected static $statuses = [
-        '0'  => 'новый',
-        '10' => 'подтверждён',
-        '20' => 'завершен'
+        '0'  => 'New',
+        '10' => 'Approved',
+        '20' => 'Completed'
     ];
 
     protected $guarded   = ['id'];

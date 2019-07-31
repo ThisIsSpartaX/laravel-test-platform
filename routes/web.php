@@ -18,6 +18,7 @@ Route::get( '/home', function() {
 });
 
 Route::get( '/weather', [ 'as' => 'weather', 'uses' => 'WeatherController@index' ] );
+Route::post( '/weather', [ 'uses' => 'WeatherController@index' ] );
 
 Route::group(['prefix' => 'reservations', 'namespace' => 'Frontend\Reservation'], function () {
     Route::get( '/', [ 'as' => 'reservations.create', 'uses' => 'ReservationController@create' ] );
